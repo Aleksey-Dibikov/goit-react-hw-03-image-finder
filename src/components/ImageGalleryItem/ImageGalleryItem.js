@@ -4,14 +4,17 @@ import s from './ImageGalleryItem.module.css';
 
 class ImageGalleryItem extends Component {
   render() {
-    const { webformatURL, tags } = this.props;
+    const { webformatURL, tags, toggleModal, bigImg } = this.props;
     return (
       <li className={s.ImageGalleryItem}>
         <img
           src={webformatURL}
           alt={tags}
           className={s.ImageGalleryItemImage}
-          onClick={() => {}}
+          onClick={() => {
+            toggleModal();
+            bigImg();
+          }}
         />
       </li>
     );

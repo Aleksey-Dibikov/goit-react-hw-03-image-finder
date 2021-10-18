@@ -5,7 +5,7 @@ import s from './ImageGallery.module.css';
 
 class ImageGallery extends Component {
   render() {
-    const { query } = this.props;
+    const { query, toggleModal, bigImg } = this.props;
     return (
       <ul className={s.ImageGallery}>
         {query.map(el => (
@@ -15,8 +15,8 @@ class ImageGallery extends Component {
             webformatURL={el.webformatURL}
             largeImageURL={el.largeImageURL}
             tags={el.tags}
-            // toggleModal={() => toggleModal()}
-            // bigImg={() => bigImg(el.id, el.largeImageURL, el.tags)}
+            toggleModal={() => toggleModal()}
+            bigImg={() => bigImg(el.id, el.largeImageURL, el.tags)}
           />
         ))}
       </ul>
@@ -32,9 +32,9 @@ ImageGallery.propTypes = {
       webformatURL: PropTypes.string,
       largeImageURL: PropTypes.string,
     }),
-    // bigImg: PropTypes.func,
-    // toggleModal: PropTypes.func,
   ),
+  bigImg: PropTypes.func,
+  toggleModal: PropTypes.func,
 };
 
 export default ImageGallery;
