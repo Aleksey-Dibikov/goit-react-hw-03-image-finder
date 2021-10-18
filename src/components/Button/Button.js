@@ -1,4 +1,19 @@
-window.scrollTo({
-  top: document.documentElement.scrollHeight,
-  behavior: 'smooth',
-});
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import s from './Button.module.css';
+
+class Button extends Component {
+  render() {
+    return (
+      <button className={s.Button} type="button" onClick={this.props.onClick}>
+        Load more
+      </button>
+    );
+  }
+}
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+};
+
+export default Button;
