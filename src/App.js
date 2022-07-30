@@ -80,19 +80,49 @@ class App extends Component {
   render() {
     const { handleFormSubmit, toggleModal, FindModalImg, btnLoadMore } = this;
     const { query, status, showModal, modalImg } = this.state;
+
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox?.setAttribute('page_id', '104227589054932');
+    chatbox?.setAttribute('attribution', 'biz_inbox');
+
+    injectFbSdkAsync(document, 'script', 'facebook-jssdk');
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        xfbml: true,
+        version: 'v14.0',
+      });
+    };
+
+    function injectFbSdkAsync(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = 'https://connect.facebook.net/ru_RU/sdk/xfbml.customerchat.js';
+      fjs.parentNode?.insertBefore(js, fjs);
+    }
+
     return (
-      <div className="App">
-        <Searchbar onSubmit={handleFormSubmit} />
-        <ImageGallery
-          query={query}
-          toggleModal={toggleModal}
-          bigImg={FindModalImg}
-        />
-        {status === 'pending' && <Spinner />}
-        {query.length > 0 && <Button onClick={btnLoadMore} />}
-        {showModal && <Modal closeModal={toggleModal} modalImg={modalImg} />}
-        {/* <ToastContainer/> */}
-      </div>
+      <>
+        <div className="App">
+          <Searchbar onSubmit={handleFormSubmit} />
+          <ImageGallery
+            query={query}
+            toggleModal={toggleModal}
+            bigImg={FindModalImg}
+          />
+          {status === 'pending' && <Spinner />}
+          {query.length > 0 && <Button onClick={btnLoadMore} />}
+          {showModal && <Modal closeModal={toggleModal} modalImg={modalImg} />}
+          {/* <ToastContainer/> */}
+        </div>
+        <div>
+          <div id="fb-root"></div>
+
+          <div id="fb-customer-chat" class="fb-customerchat"></div>
+        </div>
+      </>
     );
   }
 }
